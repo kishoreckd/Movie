@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:movie/Moviepage.dart';
 
 void main() {
   runApp(MaterialApp(home: MyApp()));
@@ -61,6 +62,7 @@ class _MyAppState extends State<MyApp> {
       ),
       body: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
+          final list = listResponses[index];
           if (listResponses != null) {
             return Column(
               children: [
@@ -75,7 +77,14 @@ class _MyAppState extends State<MyApp> {
 
                       // image: NetworkImage(
                       //     'https://m.media-amazon.com/images/I/81hSDsdtu0L._AC_UL640_FMwebp_QL65_.jpg'),
-                      title: Text(listResponses[index]['original_title']),
+                      title: Text(list['original_title']),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Moviepage(
+                                  list: list,
+                                )));
+                      },
+                      trailing: Icon(Icons.arrow_circle_right_outlined),
                       // subtitle: Text(listResponses[index]['vote_average']),
                     ),
                   ),
